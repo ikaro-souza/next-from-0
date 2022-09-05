@@ -1,6 +1,13 @@
 import { prisma } from '../db/client';
 
 export const createDefaultShoppingList = async (userId: string) => {
+  const hasAnyShoppingList = !!(await prisma.shoppingList.findFirst({
+    where: {
+      userId,
+    },
+  }));
+  if (hasAnyShoppingList) return;
+
   const { id: shoppingListId } = await prisma.shoppingList.create({
     data: {
       userId,

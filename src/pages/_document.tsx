@@ -4,6 +4,12 @@ export default function Document() {
   return (
     <Html>
       <Head>
+        <meta
+          name='description'
+          content='quickly create and menage shopping lists'
+        />
+        <meta name='keywords' content='shopping list, todo, todo list' />
+        <link rel='icon' href='/favicon.ico' />
         <link rel='preconnect' href='https://fonts.googleapis.com' />
         <link
           rel='preconnect'

@@ -1,78 +1,40 @@
 import type { NextPage } from 'next';
-import { useSession } from 'next-auth/react';
 import Head from 'next/head';
 import Link from 'next/link';
-import React from 'react';
-import { trpc } from '../utils/trpc';
 
-const Home: NextPage = () => {
-  const session = useSession();
-  const shoppingListQuery = trpc.useQuery(['shopping-lists.find-all'], {
-    enabled: !!session.data,
-  });
-
-  const renderShoppingLists = () => {
-    if (!shoppingListQuery.data) return <></>;
-    return (
-      <ul>
-        {shoppingListQuery.data.map(s => (
-          <li key={s.id}>{`${s.name} @ ${s.createdAt}`}</li>
-        ))}
-      </ul>
-    );
-  };
-
+const Index: NextPage = () => {
   return (
     <>
       <Head>
-        <title>Quick shopping list ⚡</title>
-        <meta name='description' content='Quicly create shopping lists' />
-        <link rel='icon' href='/favicon.ico' />
+        <title>Quick list ⚡</title>
+        <meta name='description' content='Quickly create shopping lists' />
       </Head>
 
-      <main className='h-[100vh]'>
-        {!session.data && <UserNeedsToCreateAccount />}
-        {shoppingListQuery.isLoading && <p>loading your shopping lists...</p>}
-        {renderShoppingLists()}
+      <main className='px-4 py-8'>
+        <section className='mb-8'>
+          <h1 className='mb-4 text-4xl font-bold'>
+            Welcome to <br />
+            Quick list ⚡
+          </h1>
+          <h2 className='text-xl'>
+            Quickly create and manage your shopping lists. It&apos;s as simple
+            as that.
+          </h2>
+        </section>
+
+        <section>
+          <p className='mb-3'>
+            To start organizing your shopping lists, please create an account.
+          </p>
+          <Link href='auth/signin'>
+            <button className='h-12 w-full rounded py-2 text-center text-lg font-medium text-black-87 dark:bg-white'>
+              Create your account
+            </button>
+          </Link>
+        </section>
       </main>
     </>
   );
 };
 
-const UserNeedsToCreateAccount: React.FC = () => {
-  return (
-    <div className='mx-auto flex h-full w-full max-w-sm items-center justify-center'>
-      <section className='w-full px-11 text-center'>
-        <h3 className='mb-3 text-xl font-bold'>✋ Hold on a second ✋</h3>
-        <p className='mb-6'>
-          In order to use the app, first you need to create an account
-        </p>
-        <Link href='/api/auth/signin'>
-          <a className='inline-block h-10 w-full rounded bg-neutral-900 py-2 px-3 font-medium text-white dark:bg-white dark:text-black-87'>
-            Create your account
-          </a>
-        </Link>
-      </section>
-    </div>
-  );
-};
-
-const Navbar: React.FC = () => {
-  return (
-    <header className='w-full border-b border-b-[#3c3c3c] p-3'>
-      <h1 className='pb-1 text-center text-2xl font-medium'>
-        &nbsp;&nbsp;Quick shopping list ⚡
-      </h1>
-    </header>
-  );
-};
-
-const BottomNavbar: React.FC = () => {
-  return (
-    <footer className='h-10 w-full border-t border-t-outline dark:border-t-outline-dark'>
-      yep
-    </footer>
-  );
-};
-
-export default Home;
+export default Index;
