@@ -1,7 +1,7 @@
 import { prisma } from '../db/client';
 
 export const createDefaultShoppingList = async (userId: string) => {
-  let { id: shoppingListId } = await prisma.shoppingList.create({
+  const { id: shoppingListId } = await prisma.shoppingList.create({
     data: {
       userId,
       name: 'groceries',
