@@ -17,6 +17,17 @@ module.exports = {
         'neutral-900': '#212121',
         'black-87': '#000000dd',
       },
+      fontFamily: {
+        sans: [
+          '-apple-system',
+          'BlinkMacSystemFont',
+          'Inter',
+          'Roboto',
+          'Segoe UI',
+          'Arial',
+          'sans-serif',
+        ],
+      },
     },
   },
   plugins: [],

@@ -41,8 +41,8 @@ const Home: NextPage = () => {
 
 const UserNeedsToCreateAccount: React.FC = () => {
   return (
-    <div className='flex h-full w-full items-center justify-center'>
-      <section className='mx-12 w-full text-center'>
+    <div className='mx-auto flex h-full w-full max-w-sm items-center justify-center'>
+      <section className='w-full px-11 text-center'>
         <h3 className='mb-3 text-xl font-bold'>✋ Hold on a second ✋</h3>
         <p className='mb-6'>
           In order to use the app, first you need to create an account
