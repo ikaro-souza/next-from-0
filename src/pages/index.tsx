@@ -1,6 +1,7 @@
-import type { NextPage } from 'next';
+import type { GetServerSideProps, NextPage } from 'next';
 import Head from 'next/head';
 import Link from 'next/link';
+import { getServerAuthSession } from '../server/common/get-server-auth-session';
 
 const Index: NextPage = () => {
   return (
@@ -38,3 +39,20 @@ const Index: NextPage = () => {
 };
 
 export default Index;
+
+export const getServerSideProps: GetServerSideProps = async ctx => {
+  const session = await getServerAuthSession(ctx);
+
+  if (session) {
+    return {
+      redirect: {
+        destination: '/home',
+        permanent: false,
+      },
+    };
+  }
+
+  return {
+    props: {},
+  };
+};
