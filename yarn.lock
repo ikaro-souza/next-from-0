@@ -32,6 +32,11 @@
     minimatch "^3.1.2"
     strip-json-comments "^3.1.1"
 
+"@heroicons/react@^2.0.10":
+  version "2.0.10"
+  resolved "https://registry.yarnpkg.com/@heroicons/react/-/react-2.0.10.tgz#191a305aa2dc2271903f027c9f4700ca3dfa9e7b"
+  integrity sha512-Ufr+pgAElNiRCSklnHGOR10bXb02BLlosvbDK7sCRUMOcQ3R/HCXTfXs4BUkYZ4dKpx6l5dUD06VSW1dTpTEDw==
+
 "@humanwhocodes/config-array@^0.10.4":
   version "0.10.4"
   resolved "https://registry.yarnpkg.com/@humanwhocodes/config-array/-/config-array-0.10.4.tgz#01e7366e57d2ad104feea63e72248f22015c520c"
@@ -1401,6 +1406,11 @@ jose@^4.1.4, jose@^4.3.7:
   version "4.9.2"
   resolved "https://registry.yarnpkg.com/jose/-/jose-4.9.2.tgz#268994df4443b9c191de0b001c2e3796ac6cf368"
   integrity sha512-EqKvu2PqJCD3Jrg3PvcYZVS7D21qMVLSYMDAFcOdGUEOpJSLNtJO7NjLANvu3SYHVl6pdP2ff7ve6EZW2nX7Nw==
+
+jotai@^1.8.2:
+  version "1.8.2"
+  resolved "https://registry.yarnpkg.com/jotai/-/jotai-1.8.2.tgz#7cbd0864e4279f5e895c414803759861fc60c7ce"
+  integrity sha512-jRKTQKChLAJGB3zG5zklJoMtpWYixUi2jK3pZd5ZRpH4pQnjYYEOAVYCzZGr4Ce5Uj7j0ffYoLM4ULAAQXUoGw==
 
 js-sha3@0.8.0:
   version "0.8.0"
