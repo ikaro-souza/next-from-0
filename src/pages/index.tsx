@@ -46,7 +46,7 @@ export const getServerSideProps: GetServerSideProps = async ctx => {
   if (session) {
     return {
       redirect: {
-        destination: '/home',
+        destination: '/shopping-lists',
         permanent: false,
       },
     };

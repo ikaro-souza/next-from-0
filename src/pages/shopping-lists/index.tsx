@@ -7,18 +7,21 @@ import classNames from 'classnames';
 import { atom, useAtom } from 'jotai';
 import type { GetServerSideProps, NextPage } from 'next';
 import Head from 'next/head';
+import Link from 'next/link';
 import React from 'react';
-import { Fab } from '../components/fab';
-import { PageSpinner } from '../components/page-spinner';
-import { useDeferredCallback } from '../hooks';
-import { trpc } from '../lib/trpc';
-import { getServerAuthSession } from '../server/common/get-server-auth-session';
+import { Fab } from '../../components/fab';
+import { PageSpinner } from '../../components/page-spinner';
+import { useDeferredCallback } from '../../hooks';
+import { trpc } from '../../lib/trpc';
+import { getServerAuthSession } from '../../server/common/get-server-auth-session';
 
 const showSearchBarAtom = atom(false);
+const listFilterAtom = atom('');
 
 const Home: NextPage = () => {
   const queryClient = trpc.useContext();
   const { data, isLoading } = trpc.useQuery(['shopping-lists.find-all']);
+  const [listFilter] = useAtom(listFilterAtom);
   const addShoppingListMutation = trpc.useMutation(['shopping-lists.add'], {
     onSuccess() {
       queryClient.invalidateQueries(['shopping-lists.find-all']);
@@ -28,17 +31,22 @@ const Home: NextPage = () => {
   const list = React.useMemo(() => {
     return (
       <ul className='mt-5 flex flex-col px-6'>
-        {data?.map(sl => (
-          <li
-            className='w-full border-b border-b-outline p-2 text-center last:border-b-0 dark:border-b-outline-dark'
-            key={sl.id}
-          >
-            {sl.name}
-          </li>
-        ))}
+        {data
+          ?.filter(
+            x =>
+              x.name?.includes(listFilter) ||
+              x.scheduleTo.toLocaleDateString().includes(listFilter),
+          )
+          .map(sl => (
+            <Link key={sl.id} href={`shopping-lists/${sl.id}`}>
+              <li className='w-full cursor-pointer border-b border-b-outline p-2 text-center last:border-b-0 dark:border-b-outline-dark'>
+                {sl.name}
+              </li>
+            </Link>
+          ))}
       </ul>
     );
-  }, [data]);
+  }, [data, listFilter]);
 
   return (
     <>
@@ -48,7 +56,6 @@ const Home: NextPage = () => {
       {isLoading && <PageSpinner />}
       <main className='h-[100vh]'>
         <Navbar />
-
         {list}
       </main>
       <Fab
@@ -65,10 +72,10 @@ const Home: NextPage = () => {
 const Navbar: React.FC = () => {
   const [showSearchBar, setShowSearchBar] = useAtom(showSearchBarAtom);
   const inputRef = React.useRef<HTMLInputElement | null>(null);
+  const [_, setListFilter] = useAtom(listFilterAtom);
   const deferredSearch = useDeferredCallback(() => {
-    console.debug('ran callback');
-  });
-  console.debug('rendered navbar');
+    setListFilter(inputRef.current?.value ?? '');
+  }, 300);
 
   return (
     <header className='border-b border-b-outline dark:border-b-outline-dark'>

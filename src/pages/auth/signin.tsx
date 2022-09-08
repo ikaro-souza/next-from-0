@@ -70,7 +70,7 @@ export const getStaticProps: GetStaticProps = async ctx => {
   return {
     props: {
       providers,
-      redirectUrl: ctx.params?.['origin'] ?? '/home',
+      redirectUrl: ctx.params?.['origin'] ?? '/shopping-lists',
     },
   };
 };

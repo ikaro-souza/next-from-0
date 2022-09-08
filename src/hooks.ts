@@ -2,20 +2,16 @@ import React from 'react';
 import { clearTimeout, setTimeout } from 'timers';
 
 export const useDeferredCallback = (
-  mutation: VoidFunction,
+  callback: (...args: any[]) => void,
   delayInMs = 500,
 ) => {
   const timerRef = React.useRef<NodeJS.Timeout | null>();
 
   return () => {
     let currentTimer = timerRef.current;
-    if (currentTimer) {
-      console.debug('cleared timer');
-      clearTimeout(currentTimer);
-    }
+    if (currentTimer) clearTimeout(currentTimer);
 
-    currentTimer = setTimeout(() => mutation(), delayInMs);
+    currentTimer = setTimeout(() => callback(), delayInMs);
     timerRef.current = currentTimer;
-    console.debug('setted up new timer');
   };
 };
